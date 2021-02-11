@@ -1,13 +1,20 @@
 const message = process.argv.slice(2)
 const URL = message[0];
+const filePath = message[1]
+const fs = require('fs')
+const stats = fs.statSync(filePath)
+let bytes = stats.size;
+
+console.log(`Download complete! Saved ${stats.size} bytes to ${filePath}`);
 
 const request = require('request');
-request('URL', (error, response, body) => {
+request(URL, (error, response, body) => {
   console.log('error:', error); // Print the error if one occurred
   console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
   console.log('body:', body); // Print the HTML for the Google homepage.
 });
 
+module.exports = { bytes }
 
 
 
